@@ -1,0 +1,197 @@
+\documentclass{beamer}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{minted}
+\usepackage{etoolbox}
+
+%%% presentation theme %%%
+\usetheme{Warsaw}
+\useoutertheme{infolines}
+\addtobeamertemplate{headline}{}{\vskip2pt}
+\setbeamersize{text margin left=1cm,text margin right=1cm}
+
+%%% colors %%%
+\definecolor{MyBlack}{RGB}{10, 10, 10}
+\definecolor{MyGreen}{RGB}{80, 255, 80}
+\definecolor{MyPurple}{RGB}{146, 71, 238}
+\definecolor{MyRed}{RGB}{163, 0, 58}
+\definecolor{MyBlue}{RGB}{0, 115, 136}
+\definecolor{MyGray}{RGB}{70, 84, 87}
+
+\setbeamercolor*{normal text}{bg=black, fg=MyGreen}
+\setbeamercolor*{title}{bg=MyBlack, fg=MyBlue}
+\setbeamercolor*{frametitle}{bg=MyBlack, fg=MyBlue}
+\setbeamercolor*{frametitle right}{bg=MyBlack, fg=MyBlue}
+\setbeamercolor*{palette primary}{fg=MyGreen, bg=MyBlack}
+\setbeamercolor*{palette secondary}{fg=MyGreen, bg=MyBlack!40!black}
+\setbeamercolor*{palette tertiary}{fg=MyGreen, bg=MyBlack!10!black}
+\setbeamercolor*{navigation symbols}{fg=MyRed!60!bg}
+\setbeamercolor*{navigation symbols dimmed}{fg=MyRed!30!bg}
+\setbeamercolor*{item}{fg=MyPurple}
+\setbeamercolor*{section in toc}{fg=MyGreen}
+\setbeamercolor*{subsection in toc}{fg=MyGreen}
+\setbeamercolor*{subsubsection in toc}{fg=MyGreen}
+
+\hypersetup{colorlinks,linkcolor=,urlcolor=MyRed}
+
+%%% minted %%%
+\newminted{c}{bgcolor=MyBlack,linenos,obeytabs,frame=none}
+\usemintedstyle{behelit} % https://github.com/oblique/pygments-style-behelit
+\AtBeginEnvironment{minted}{\fontsize{8}{8}\selectfont}
+\renewcommand{\theFancyVerbLine}{\ttfamily%
+  \textcolor{MyBlue}{\scriptsize%
+    \oldstylenums{\arabic{FancyVerbLine}}}}
+
+%%% beamer templates %%%
+\setbeamertemplate{itemize items}{\textbullet}
+
+\setbeamertemplate{section in toc}{%
+  {\color{MyPurple}{\LARGE\textbullet}}%
+  \pgftext[base,x=-4.4pt,y=2.8pt]{\color{black}{%
+      \fontsize{4.5pt}{0pt}\selectfont\inserttocsectionnumber}}%
+  \hskip\labelsep%
+  \inserttocsection\par}
+
+\setbeamertemplate{subsection in toc}{%
+  \hskip\leftmargini%
+  {\color{MyPurple}\textbullet}%
+  \hskip\labelsep%
+  \inserttocsubsection\par}
+
+\setbeamertemplate{subsubsection in toc}{%
+  \hskip\leftmargini%
+  \hskip\leftmarginii%
+  {\color{MyPurple}\textbullet}%
+  \hskip\labelsep%
+  \inserttocsubsubsection\par}
+
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%%% enviroments %%%
+\makeatletter%
+\newlength{\noheadline@origheadheight}
+\newenvironment{noheadline}
+{%
+  \beamer@calculateheadfoot%
+  \setlength{\noheadline@origheadheight}{\headheight}%
+  \setlength{\headheight}{0pt}%
+  \setbeamertemplate{headline}{\leavevmode\vspace{\noheadline@origheadheight}}%
+  \advance\textheight by \noheadline@origheadheight%
+  \global\@colht\textheight
+  \global\@colroom\textheight%
+  \global\vsize\textheight%
+}
+{%
+  \advance\textheight by -\noheadline@origheadheight%
+  \global\@colht\textheight%
+  \global\@colroom\textheight%
+  \global\vsize\textheight%
+}
+\makeatother
+
+
+%%% presentation info %%%
+\title{presentation example}
+\author{oblique}
+\date{\today}
+
+
+%%% presentation %%%
+\begin{document}
+
+\begin{noheadline}
+  \begin{frame}
+    \titlepage
+  \end{frame}
+
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+\end{noheadline}
+
+\section{section 1}
+\begin{frame}{frame 1}
+  \begin{itemize}
+  \item item 1
+  \item item 2
+    \begin{itemize}
+    \item subitem 2.1
+    \item subitem 2.2
+    \end{itemize}
+  \item item 3
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{frame 2}
+  \begin{itemize}
+    \item url\\
+      \url{https://github.com/oblique}
+    \item image\\
+      \begin{center}
+        \includegraphics[scale=0.55]{image.png}
+      \end{center}
+  \end{itemize}
+\end{frame}
+
+\section{section 2}
+\subsection{subsection 2.1}
+\begin{frame}[allowframebreaks]{frame break}
+  line 1\\
+  line 2\\
+  line 3\\
+  line 4\\
+  \framebreak
+  line 5\\
+  line 6\\
+  line 7\\
+  line 8\\
+\end{frame}
+
+\section{code example}
+\begin{frame}[fragile]{code example}
+\begin{ccode}
+#include <stdio.h>
+
+/* comment */
+int main() {
+  printf("hello\n");
+}
+\end{ccode}
+\end{frame}
+
+\section{top}
+\begin{frame}[t]{top}
+  top
+\end{frame}
+
+\section{center}
+\begin{frame}[c]{center}
+  \begin{center}
+    center
+  \end{center}
+\end{frame}
+
+\section{empty}
+\begin{frame}{empty}
+  ~
+\end{frame}
+
+\end{document}
