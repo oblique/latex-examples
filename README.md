@@ -4,4 +4,4 @@
 
 ## Dependencies
 ### presentation
-   if you want to have the same code highlighting with me, you need to install [behelit pygements style](https://github.com/oblique/pygments-style-behelit)
+   if you want to have the same code highlighting colors with me, you need to install [behelit pygements style](https://github.com/oblique/pygments-style-behelit)
