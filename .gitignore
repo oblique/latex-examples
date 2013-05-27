@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.out
+*.pyg
+*.toc
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
